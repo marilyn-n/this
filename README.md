@@ -28,4 +28,5 @@ The global object in the browser is called `window`. At the global scope, this i
   
 ```
 
-## Top Level Function
+## Stand Alone Functions
+
