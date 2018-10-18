@@ -2,14 +2,14 @@
 
 The `this` keyword can also be refered as `context` object.
 
-## Global Scope
+## Global namespace
 
-Outside of all functions, objects and definitions, the scope is called the global scope/namespace/environment. `this` is the global object at the global scope.
+Outside of all functions, objects and definitions, the namespace is called the global namespace/environment. `this` is the global object at the global namespace.
 
 
 ### Node
 
-The global object in Node is called `global`. At the global scope, this is global.
+The global object in Node is called `global`. At the global namespace, this is global.
 
 ```js
 
@@ -20,7 +20,7 @@ The global object in Node is called `global`. At the global scope, this is globa
 
 ### Browser
 
-The global object in the browser is called `window`. At the global scope, this is window.
+The global object in the browser is called `window`. At the global namespace, this is window.
 
 ```js
 
@@ -48,15 +48,15 @@ If the 'use strict' is applied, `this` is set to undefined, in that execution.
 ```js
 'use strict'
 
-const logThis = function () {
+const returnThis = function () {
   return this
 }
 
-logThis() === undefined
+returnThis() === undefined
 
 // true
 
-logThis()
+returnThis()
 
 // undefined
 ```
@@ -66,17 +66,17 @@ logThis()
 If the 'use strict' is not applied, `this` is set to the Global object (`global` for node, `window` for the Browser), in that execution.
 
 ```js
-const logThis = function () {
+const returnThis = function () {
   return this
 }
 
-logThis() === global
+returnThis() === global
 // true for node
 
-logThis() === window
+returnThis() === window
 // true for browser
 
-logThis()
+returnThis()
 
 // global in node
 // window in browser
