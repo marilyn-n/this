@@ -85,8 +85,63 @@ returnThis()
 
 ### Method Functions
 
-If an object property is a function, then we call it a object method ** (method or method function) ** .
+If an object property is a function, then we call it a object method **(method or method function)** .
 At the call site (where the function is executed), if the function is a method the `this` keyword is set to the attached object.
+
+```js
+
+const car = { 
+  type: "Fiat", 
+  model: "500", 
+  color: "white" 
+  }
+
+car.colorInSpanish = function () {
+  const tono = this.color === 'white' ? 'blanco' : 'no sé'
+  return tono
+}
+
+car.colorInSpanish()
+
+const hi = function () {
+  return `hi i am a ${this.type} - ${this.model}`
+}
+
+hi() === 'hi I am a undefined - undefined'
+
+// true
+
+Object.assign(car, {
+  hello: function () {
+    return `hi I am a ${this.type} - ${this.model}`
+  }
+})
+
+// car.hello = hi
+
+car.hello()
+
+// Hi I am a Fiat - 500
+
+const tonoDeCoche = car.colorInSpanish
+
+// function () {
+//   const tono = this.color === 'white' ? 'blanco' : 'no sé'
+//   return tono
+// }
+
+tonoDeCoche()
+
+// (function () {
+//   const tono = this.color === 'white' ? 'blanco' : 'no sé'
+//   return tono
+// })()
+
+const coche = car
+
+coche.colorInSpanish()
+
+```
 
 ### Function Constructors With new Keyword
 
