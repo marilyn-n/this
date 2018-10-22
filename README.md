@@ -2,7 +2,7 @@
 
 The `this` keyword can also be refered as `context` object.
 
-## Global namespace
+## Global Namespace
 
 Outside of all functions, objects and definitions, the namespace is called the global namespace/environment. `this` is the global object at the global namespace.
 
@@ -97,18 +97,20 @@ const car = {
   }
 
 car.colorInSpanish = function () {
+  console.log(car)
   const tono = this.color === 'white' ? 'blanco' : 'no sé'
   return tono
 }
 
 car.colorInSpanish()
+// blanco
 
 const hi = function () {
   return `hi i am a ${this.type} - ${this.model}`
 }
 
 hi() === 'hi I am a undefined - undefined'
-
+car.hi()
 // true
 
 Object.assign(car, {
@@ -126,11 +128,13 @@ car.hello()
 const tonoDeCoche = car.colorInSpanish
 
 // function () {
+//   console.log(car)
 //   const tono = this.color === 'white' ? 'blanco' : 'no sé'
 //   return tono
 // }
 
 tonoDeCoche()
+// TypeError: Cannot read property 'color' of undefined
 
 // (function () {
 //   const tono = this.color === 'white' ? 'blanco' : 'no sé'
