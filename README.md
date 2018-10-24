@@ -196,3 +196,37 @@ console.log(mySuperHero2)
 ## this and that
 
 ## call and apply
+
+`.call()` and `.apply()` are different ways to execute a stand alone function. They allow over-writing the value of `this`.
+
+
+### call
+
+Call accepts parameters that are `this` and formal function arguments individually.
+
+```js
+
+const superHero = function (name, superPower) {
+  console.log('this is:', this)
+  this.name = name
+  this.superPower = superPower
+  this.allegiance = 'Good'
+    console.log('this is:', this,'???????????')
+}
+
+superHero('Wasp', 'Flying insect')
+
+const ladyHero = {
+  gender: 'Female',
+  strong: true
+}
+
+const myThis = {
+  ojos: 'negros'
+}
+
+
+superHero.call(ladyHero,'Wasp', 'Flying insect')
+superHero.call(myThis,'Wasp', 'Flying insect')
+
+```
