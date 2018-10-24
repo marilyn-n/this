@@ -1,6 +1,8 @@
 # This 
 
-The `this` keyword can also be refered as `context` object.
+The `this` keyword can also be refered as the `context` object. `this` is an identifier set to an object - the **call site** determines what the object is.
+
+The **call site** is the neighbourhood (as a **stand-alone function** or **object method**;  with or without the `use strict` pragma.) where the function is called [with `.call()`, `.apply()`, `.bind()` or plain `()`].
 
 ## Global Namespace
 
@@ -34,16 +36,18 @@ All functions that are not arrow functions, i.e.
 * function declaration
 * function expression
 * function constructor
+* object literal shorthand function
+* ES6 class shorthand method
 
-have a `this` keyword at execution time. Depending on the neighbours of the function when it is called (executed) the value  of `this` is set.
+have a `this` keyword at execution time. Depending on the call-site the value  of `this` is set.
 
 ### Stand Alone Functions
 
-A stand alone function is a funciton that is not attached to an object. (It doesn't matter if the function is nested in many other functions or objects).
+A stand alone function is a function that is not attached to an object. (It doesn't matter if the function is nested in many other functions or objects).
 
 #### With 'use strict' pragma
 
-If the 'use strict' is applied, `this` is set to undefined, in that execution.
+If the 'use strict' is applied, `this` is set to undefined, at the call-site.
 
 ```js
 'use strict'
@@ -63,7 +67,7 @@ returnThis()
 
 #### Without 'use strict' pragma
 
-If the 'use strict' is not applied, `this` is set to the Global object (`global` for node, `window` for the Browser), in that execution.
+If the 'use strict' is not applied, `this` is set to the Global object (`global` for node, `window` for the Browser), at the call-site.
 
 ```js
 const returnThis = function () {
@@ -147,8 +151,42 @@ coche.colorInSpanish()
 
 ```
 
-### Function Constructors With new Keyword
+### Function Constructors with `new` Keyword
 
+`new` changes how a function and `this` behave.
+
+At the first line in the function body `this` is set to:
+
+```js
+const this = Object.prototype
+
+```
+
+at the end of the function body:
+
+```js
+return this
+
+```
+
+`this` starts as an empty object, then the funcion is run (properties are attached to this) and `this` is returned. It is a way to create new objects from a template (Prototype).
+
+
+```js
+const superHero = function (name, superPower) {
+  console.log('this is:', this)
+  this.name = name
+  this.superPower = superPower
+  this.allegiance = 'Good'
+}
+
+const mySuperHero = superHero('Venom', 'Eating Heads')
+const mySuperHero2 = new superHero('Hulk', 'Getting Angry') 
+
+console.log(mySuperHero)
+console.log(mySuperHero2)
+
+```
 ## Arrow Functions
 
 ## Helpful Strategies
