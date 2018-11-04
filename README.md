@@ -2,7 +2,7 @@
 
 The `this` keyword can also be refered as the `context` object. `this` is an identifier set to an object - the **call site** determines what the object is.
 
-The **call site** is the neighbourhood (as a **stand-alone function** or **object method**;  with or without the `use strict` pragma.) where the function is called [with `.call()`, `.apply()`, `.bind()` or plain `()`].
+The **call site** is the neighbourhood (as a **stand-alone function** or **object method**  with or without the `use strict` pragma.) where the function is called [with `.call()`, `.apply()`, `.bind()` or plain `()`].
 
 ## Global Namespace
 
@@ -130,6 +130,7 @@ car.hello()
 // Hi I am a Fiat - 500
 
 const tonoDeCoche = car.colorInSpanish
+tonoDeConche.toString()
 
 // function () {
 //   console.log(car)
@@ -187,20 +188,11 @@ console.log(mySuperHero)
 console.log(mySuperHero2)
 
 ```
-## Arrow Functions
-
-## Helpful Strategies
-
-##  bind
-
-## this and that
-
-## call and apply
 
 `.call()` and `.apply()` are different ways to execute a stand alone function. They allow over-writing the value of `this`.
 
 
-### call
+## call
 
 `.call()` accepts parameters that are `this` and the formal function arguments individually - like a list.
 
@@ -235,7 +227,7 @@ superHero.call(ladyHero,'Wasp', 'Flying insect')
 superHero.call(myThis,'Wasp', 'Flying insect')
 
 ```
-### apply
+## apply
 
 `.apply()` accepts parameters that are `this` and the formal function arguments as an array(or array-like object).
 
@@ -252,3 +244,117 @@ superHero.apply(myThis, ['Wasp', 'Flying insect'])
 const heros = ['black panter', 'spiderman']
 superHero.call(ladyHero, ...heros)
 ```
+
+## bind
+
+Where as `.apply` and `.call` fix the value of `this` and execute the function, `.bind` fixes the value of `this`but does not execute the function. Instead `.bind`returns another function with its `this` fixed.
+
+
+```js
+
+const ladyHero = {
+  gender: 'Female',
+  strong: true
+}
+
+const superHero = function (name, superPower) {
+  console.log('this is:', this)
+  this.name = name
+  this.superPower = superPower
+  this.allegiance = 'Good'
+    console.log('this is:', this,'???????????')
+}
+
+// const superHeroBoundToLadyHero = function (name, superPower) {
+//   console.log('this is:', ladyHero)
+//   ladyHero.name = name
+//   ladyHero.superPower = superPower
+//   ladyHero.allegiance = 'Good'
+//     console.log('this is:', ladyHero,'???????????')
+// }
+
+const boundFn = superHero.bind(ladyHero)
+
+boundFn('Jose', 'flying') === superHero.call(ladyHero, 'Jose', 'flying')
+
+//   console.log('this is:', ladyHero)
+//   ladyHero.name = 'jose'
+//   ladyHero.superPower = 'flying'
+//   ladyHero.allegiance = 'Good'
+//     console.log('this is:', ladyHero,'???????????')
+// }
+
+boundFn('wasp', 'flying') === superHero.call(ladyHero, 'wasp', 'flying')
+
+const childFn = parentFn.bind(myThis)
+
+// obj.childFn()
+// obj.parentFn()
+
+// childFn()
+// parentFn()
+
+// 'use strict'
+// childFn()
+// parentFn()
+
+```
+
+## this and that
+
+`that`, `self`, `_this`, `thiz` are identifier tokens. Theres is nothing special about these tokens. By convention, one of them is used to store the value of `this` and use it later.
+
+
+```js
+
+var aProperty = 'global'
+
+// window.aProperty === 'global' true
+
+const myObject = {
+
+  aMethod: function() {
+    this.aProperty = 'local'
+    const thiz = this
+
+    setTimeout(function() {
+      console.log(thiz.aProperty) // outputs 'local'
+    }, 1000)
+  }
+
+}
+
+myObject.aMethod()
+
+```
+
+var aProperty = 'global'
+
+window = {
+  aProperty: 'global'
+}
+
+myObject = {
+ aProperty: 'local'
+}
+
+data {
+    pop: 'apestosa',
+    queso: 'quesadilla', 
+  logQuesadilla() {
+    return this.queso
+  },
+}
+
+
+}
+
+
+## Arrow Functions
+
+## Helpful Strategies
+
+
+ const newFunction = createFunction(oldFun)
+ oldFun()
+ newFunction()
