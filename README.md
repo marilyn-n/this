@@ -202,7 +202,13 @@ console.log(mySuperHero2)
 
 ### call
 
-Call accepts parameters that are `this` and formal function arguments individually.
+`.call()` accepts parameters that are `this` and the formal function arguments individually - like a list.
+
+```js
+
+fun.call(this, arg1, arg2)
+
+```
 
 ```js
 
@@ -225,8 +231,24 @@ const myThis = {
   ojos: 'negros'
 }
 
-
 superHero.call(ladyHero,'Wasp', 'Flying insect')
 superHero.call(myThis,'Wasp', 'Flying insect')
 
+```
+### apply
+
+`.apply()` accepts parameters that are `this` and the formal function arguments as an array(or array-like object).
+
+```js
+
+fun.apply(this, [arg1, arg2])
+
+```
+
+```js
+superHero.apply(ladyHero, ['Wasp', 'Flying insect'])
+superHero.apply(myThis, ['Wasp', 'Flying insect'])
+
+const heros = ['black panter', 'spiderman']
+superHero.call(ladyHero, ...heros)
 ```
