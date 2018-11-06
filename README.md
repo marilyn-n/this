@@ -114,7 +114,6 @@ const hi = function () {
 }
 
 hi() === 'hi I am a undefined - undefined'
-car.hi()
 // true
 
 Object.assign(car, {
@@ -328,33 +327,55 @@ myObject.aMethod()
 
 ```
 
-var aProperty = 'global'
-
-window = {
-  aProperty: 'global'
-}
-
-myObject = {
- aProperty: 'local'
-}
-
-data {
-    pop: 'apestosa',
-    queso: 'quesadilla', 
-  logQuesadilla() {
-    return this.queso
-  },
-}
-
-
-}
-
-
 ## Arrow Functions
 
-## Helpful Strategies
+Arrow Functions have no `this` keyword of their own. Instead `this` is lexically scoped from the arrow function at definition time. 
+
+Arrow Functions have no context methods, i.e.
+
+.call()
+.apply()
+.bind()
+
+```js
+
+const fn = () => {
+  console.log(this)
+}
+
+const fnES5 = function () {
+ console.log(this)
+} 
+
+fn() // global object
+fnES5() // global object
+
+const obj = {
+  aProperty: true,
+  fn: fn,
+  fnES5: fnES5,
+  show(){
+
+  }
+}
+
+obj.fn() // global object
+obj.fnES5() // obj
 
 
- const newFunction = createFunction(oldFun)
- oldFun()
- newFunction()
+```
+`This` and `that`, `.bind`, `.call`, `.apply` can be avoided by carefully using arrow functions inside ES5 functions.
+
+```js
+const myObject = {
+
+  aMethod: function() {
+    this.aProperty = 'local'
+
+    setTimeout(() => {
+      console.log(this.aProperty) // outputs 'local'
+    }, 1000)
+  }
+}
+
+```
